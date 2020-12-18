@@ -35,7 +35,7 @@ function texmath(md, options) {
 
 // texmath.inline = (rule) => dollar;  // just for debugging/testing ..
 
-texmath.inline = (rule) => 
+texmath.inline = (rule) =>
     function(state, silent) {
         const pos = state.pos;
         const str = state.src;
@@ -43,7 +43,7 @@ texmath.inline = (rule) =>
         const match = pre && rule.rex.exec(str);
         const res = !!match && pos < rule.rex.lastIndex && (!rule.post || rule.post(str, rule.rex.lastIndex - 1));
 
-        if (res) { 
+        if (res) {
             if (!silent) {
                 const token = state.push(rule.name, 'math', 0);
                 token.content = match[1];
@@ -54,14 +54,14 @@ texmath.inline = (rule) =>
         return res;
     }
 
-texmath.block = (rule) => 
+texmath.block = (rule) =>
     function block(state, begLine, endLine, silent) {
         const pos = state.bMarks[begLine] + state.tShift[begLine];
         const str = state.src;
         const pre = str.startsWith(rule.tag, rule.rex.lastIndex = pos) && (!rule.pre || rule.pre(str, pos));  // valid pre-condition ....
         const match = pre && rule.rex.exec(str);
         const res = !!match
-                 && pos < rule.rex.lastIndex 
+                 && pos < rule.rex.lastIndex
                  && (!rule.post || rule.post(str, rule.rex.lastIndex - 1));
 
         if (res && !silent) {    // match and valid post-condition ...
@@ -176,10 +176,10 @@ texmath.$_post = (str,end) => {
 
 texmath.rules = {
     brackets: {
-        inline: [ 
+        inline: [
             {   name: 'math_inline',
                 rex: /\\\((.+?)\\\)/gy,
-                tmpl: '<eq>$1</eq>',
+                tmpl: '<span class="eq">$1</span>',
                 tag: '\\('
             }
         ],
@@ -197,10 +197,10 @@ texmath.rules = {
         ]
     },
     gitlab: {
-        inline: [ 
+        inline: [
             {   name: 'math_inline',
                 rex: /\$`(.+?)`\$/gy,
-                tmpl: '<eq>$1</eq>',
+                tmpl: '<span class="eq">$1</span>',
                 tag: '$`'
             }
         ],
@@ -218,15 +218,15 @@ texmath.rules = {
         ]
     },
     julia: {
-        inline: [ 
-            {   name: 'math_inline', 
+        inline: [
+            {   name: 'math_inline',
                 rex: /`{2}([^`]+?)`{2}/gy,
-                tmpl: '<eq>$1</eq>',
+                tmpl: '<span class="eq">$1</span>',
                 tag: '``'
             },
             {   name: 'math_inline',
                 rex: /\$((?:\S?)|(?:\S.*?\S))\$/gy,
-                tmpl: '<eq>$1</eq>',
+                tmpl: '<span class="eq">$1</span>',
                 tag: '$',
                 pre: texmath.$_pre,
                 post: texmath.$_post
@@ -246,10 +246,10 @@ texmath.rules = {
         ]
     },
     kramdown: {
-        inline: [ 
-            {   name: 'math_inline', 
+        inline: [
+            {   name: 'math_inline',
                 rex: /\${2}(.+?)\${2}/gy,
-                tmpl: '<eq>$1</eq>',
+                tmpl: '<span class="eq">$1</span>',
                 tag: '$$'
             }
         ],
@@ -278,7 +278,7 @@ texmath.rules = {
             },
             {   name: 'math_inline',
                 rex: /\$((?:\S)|(?:\S.*?\S))\$/gy,
-                tmpl: '<eq>$1</eq>',
+                tmpl: '<span class="eq">$1</span>',
                 tag: '$',
                 pre: texmath.$_pre,
                 post: texmath.$_post

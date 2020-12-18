@@ -1,7 +1,9 @@
 /* style for html inside of browsers */
-.katex { font-size: 1em !important; } /* align KaTeX font-size to surrounding text */
 
-eq { display: inline-block; }
+/* align KaTeX font-size to surrounding text */
+/* .katex { font-size: 1em !important; }  */
+
+.eq { display: inline-block; }
 eqn { display: block}
 section.eqno {
     display: flex;

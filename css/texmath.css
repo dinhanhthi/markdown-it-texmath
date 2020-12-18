@@ -4,7 +4,8 @@
 /* .katex { font-size: 1em !important; }  */
 
 .eq { display: inline-block; }
-eqn { display: block}
+.eqn { display: block}
+
 section.eqno {
     display: flex;
     flex-direction: row;

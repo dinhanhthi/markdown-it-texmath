@@ -292,7 +292,7 @@ texmath.rules = {
             },
             {   name: 'math_block',
                 rex: /\${2}([^$]+?)\${2}/gmy,
-                tmpl: '<section><eqn>$1</eqn></section>',
+                tmpl: '<section class="eqn"><eqn>$1</eqn></section>',
                 tag: '$$'
             }
         ]
